@@ -1,5 +1,5 @@
 
-import { prisma } from '../../../../database/prismaClient';
+import { prisma } from '../../../database/prismaClient';
 import { compare } from 'bcryptjs';
 import { sign } from 'jsonwebtoken';
 
@@ -9,10 +9,10 @@ interface IAuthenticateDeliveryman {
 }
 
 export class AuthenticateDeliverymanUseCase {
-  async execute({ username, password }: IAuthenticateDeliveryman) {
-    //Receber username e password
+  //Receber username e password
 
-    //verificar se username esta cadastrado
+  //verificar se username esta cadastrado
+  async execute({ username, password }: IAuthenticateDeliveryman) {
     const deliveryman = await prisma.deliveryman.findFirst({
       where: {
         username,
@@ -22,7 +22,6 @@ export class AuthenticateDeliverymanUseCase {
     if (!deliveryman) {
       throw new Error('Username or password invalid!');
     }
-
     //verificar se senha corresponde ao username
     const passwordMatch = await compare(password, deliveryman.password);
 

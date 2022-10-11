@@ -1,17 +1,14 @@
-import { Request, Response } from "express";
-import { AutheticateClientUseCase } from "./AuthenticateClientUseCase";
+import { Request, Response } from 'express';
+import { AuthenticateClientUseCase } from './AuthenticateClientUseCase';
 
-
-
-export class AutheticateClientController {
+export class AuthenticateClientController {
   async handle(request: Request, response: Response) {
     const { username, password } = request.body;
 
-    const authenticateClientUseCase = new AutheticateClientUseCase();
-
+    const authenticateClientUseCase = new AuthenticateClientUseCase();
     const result = await authenticateClientUseCase.execute({
       username,
-      password
+      password,
     });
 
     return response.json(result);
